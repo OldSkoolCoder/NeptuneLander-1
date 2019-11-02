@@ -15,6 +15,7 @@ GameLoop
         jsr AddGravity
         ;jsr dbUserInput
         jsr UpdateSprites
+        jsr LandingDetection
         jsr CollisionDetection
         ;jsr dbCollisionDetection
         jsr DisplayFuel
@@ -22,7 +23,13 @@ GameLoop
         jsr GameFlowUpdate
 
         lda gameStatus
+        cmp #gfLanded
+        beq Winner
+        cmp #gfMenu
         bne GameLoop
         jmp Initialise
+
+Winner
+        jmp Winner
 
 

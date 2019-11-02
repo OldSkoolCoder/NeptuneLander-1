@@ -25,6 +25,7 @@ velMicro                byte 00
 gameStatus              byte 00
 
 collisionBackground     byte 00
+shipLanded              byte 00
 
 shipExplosionFrame      byte 00
 shipExplosionLoop       byte 00, 00

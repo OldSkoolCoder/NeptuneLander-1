@@ -24,6 +24,12 @@ GameFlowStatusMenu
         rts
 
 GameFlowStatusAlive
+        lda shipLanded
+        beq @checkcollision
+        lda #gfLanded
+        sta gameStatus
+        jmp @exit
+@checkcollision
         lda collisionBackground
         ;lda dbcollision
         beq @exit
@@ -55,5 +61,6 @@ GameFlowStatusDead
         rts
 
 GameFlowStatusLanded
-        ;not yet active
+        lda #$39
+        sta $0410
         rts

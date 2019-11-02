@@ -20,6 +20,7 @@ InitVariables
         sta shipExplosionLoop
         sta shipExplosionLoop + 1
         sta velMicro
+        sta shipLanded
         lda #1
         sta thrustSprite
         lda #2
@@ -243,7 +244,51 @@ UpdateSprites
         LIBSPRITE_SETPOSITION_AAAA thrustDirSprite, shipXHi, shipXLo+1, shipY+1
         rts
 
+LandingDetection
+        lda shipXHi
+        cmp #0
+        bne @zone3test
+        lda shipY + 1
+        cmp #228
+        bcc @zone2test
+        lda shipXLo + 1
+        cmp #63
+        bcc @zone2test
+        cmp #66
+        bcs @zone2test
+        lda #true
+        sta shipLanded
+        jmp @exit
+@zone2test
+        lda shipY + 1
+        cmp #132
+        bcc @exit
+        lda shipXLo + 1
+        cmp #140
+        bcc @Exit
+        cmp #145
+        bcs @exit
+        lda #true
+        sta shipLanded
+        jmp @exit
+@zone3test
+        lda shipY + 1
+        cmp #204
+        bcc @exit
+        lda shipXLo + 1
+        cmp #8
+        bcc @exit
+        cmp #18
+        bcs @exit
+        lda #true
+        sta shipLanded
+@exit
+        rts
+
 CollisionDetection
+        lda shipLanded
+        cmp #true
+        beq @nocollision
         LIBSPRITE_DATACOLLIDE_A shipSprite
         beq @nocollision
         lda shipXHi
@@ -335,14 +380,7 @@ dbUserInput
         lda #44
         jsr krnCHROUT
 
-        ldx safezone
-        lda #0
-        jsr $BDCD
-
-        lda #44
-        jsr krnCHROUT
-
-        ldx shipXHi
+        ldx shipLanded
         lda #0
         jsr $BDCD
 
@@ -362,6 +400,9 @@ dbUpdateSprites
         rts
 
 dbCollisionDetection
+        lda shipLanded
+        cmp #true
+        beq dbCollisionExit
         LIBSPRITE_DATACOLLIDE_A shipSprite
         beq dbCollisionExit
         lda #true
