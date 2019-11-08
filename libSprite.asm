@@ -102,3 +102,21 @@ defm    LIBSPRITE_MULTICOLORENABLE_AV ;spritenumber, enable/disable
         sta SPRMCS
 @done
         endm
+
+defm    LIBSPRITE_CHECKPOS_AVVAVVA ;Y, min, max, X, min, max, result
+
+        lda /1 ;shipY + 1
+        cmp #/2 ;228
+        bcc @done
+        cmp #/3
+        bcs @done
+        lda /4 ;shipXLo + 1
+        cmp #/5 ;63
+        bcc @done
+        cmp #/6 ;66
+        bcs @done
+        lda #true
+        sta /7
+@done
+
+        endm

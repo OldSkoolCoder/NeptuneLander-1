@@ -1,9 +1,6 @@
 ;game subroutines
 
 InitVariables
-        lda #60
-        sta shipXLo + 1
-        sta shipY + 1
         lda #0
         sta collisionBackground
         sta shipXHi
@@ -21,26 +18,15 @@ InitVariables
         sta shipExplosionLoop + 1
         sta velMicro
         sta shipLanded
-        lda #1
-        sta thrustSprite
-        lda #2
-        sta gravity
-        sta thrustDirSprite
-        sta horizontalInertia
-        sta shipExplosionFrame
-        lda #4
-        sta thrust
-        sta velMinor
-        lda #6
-        sta velMajor
-        lda #8
-        sta fuelMinor
-        lda #10
-        sta fuelMicro
-        lda #13
-        sta fuelMajor
-        lda #gfAlive
-        sta gameStatus
+        LIBGENERAL_STORE_VA 1, thrustSprite
+        LIBGENERAL_STORE_VA 6, velMajor
+        LIBGENERAL_STORE_VA 8, fuelMinor
+        LIBGENERAL_STORE_VA 10, fuelMicro
+        LIBGENERAL_STORE_VA 13, fuelMajor
+        LIBGENERAL_STORE_VA gfAlive, gameStatus
+        LIBGENERAL_STORE2_VAA 4, thrust, velMinor
+        LIBGENERAL_STORE2_VAA 60, shipXLo + 1, shipY + 1
+        LIBGENERAL_STORE4_VAAAA 2, gravity, thrustDirSprite, horizontalInertia, shipExplosionFrame
         lda SPRCBG
         rts
 
@@ -53,12 +39,9 @@ InitScreen
 
 InitGauges
         LIBSCREEN_VERTICALCHAR_VVVAA #64, gray3, 13, $0426, $D826
-        lda #green
-        sta $D916
+        LIBGENERAL_STORE_VA green, $D916
         LIBSCREEN_VERTICALCHAR_VVVAA #64, lightblue, 13, $0425, $D825
-        lda #red
-        sta $D9DD
-        sta $DA05
+        LIBGENERAL_STORE2_VAA red, $D9DD, $DA05
         rts
 
 InitSprites
@@ -114,23 +97,19 @@ AdjustFuel
         lda fuelMicro
         cmp #$FF
         bne AdjustFuelExit
-        lda #cnFuelRate
-        sta fuelMicro
+        LIBGENERAL_STORE_VA cnFuelRate, fuelMicro
         dec fuelMinor
         lda fuelMinor
         cmp #$FF
         bne AdjustFuelExit
-        lda #8
-        sta fuelMinor
+        LIBGENERAL_STORE_VA 8, fuelMinor
         dec fuelMajor
 AdjustFuelExit
         rts
 
 DisplayFuel
-        lda #$2D
-        sta zpLow
-        lda #$06
-        sta zpHigh
+        LIBGENERAL_STORE_VA $2D, zpLow
+        LIBGENERAL_STORE_VA $06, zpHigh
         ldx fuelMajor
 @loop
         LIBMATHS_SUBTRACT_16BIT_AVVA zpLow, 40, 00, zpLow
@@ -157,8 +136,7 @@ AdjustVelocityGauge
         lda velMinor
         cmp #$FF
         bne @exit
-        lda #7
-        sta velMinor
+        LIBGENERAL_STORE_VA 7, velMinor
         dec velMajor
         lda velMajor
         cmp #$FF
@@ -175,23 +153,18 @@ AdjustVelocityGauge
         lda velMinor
         cmp #8
         bmi @exit
-        lda #00
-        sta velMinor
+        LIBGENERAL_STORE_VA 0, velMinor
         inc velMajor
         lda velMajor
         cmp #12
         bmi @exit
-        lda #12
-        sta velMajor
-        lda #7
-        sta velMinor
+        LIBGENERAL_STORE_VA 12, velMajor
+        LIBGENERAL_STORE_VA 7, velMinor
         rts
 
 DisplayVelocity
-        lda #$26
-        sta zpLow
-        lda #$04
-        sta zpHigh
+        LIBGENERAL_STORE_VA $26, zpLow
+        LIBGENERAL_STORE_VA $04, zpHigh
         ldy velMajor
         ldx #0
 @loop
@@ -216,10 +189,8 @@ AddGravity
         lda verticalVelocity+1
         cmp #2
         bmi @GravityExit
-        lda #2
-        sta verticalVelocity+1
-        lda #$00
-        sta verticalVelocity
+        LIBGENERAL_STORE_VA 2, verticalVelocity+1
+        LIBGENERAL_STORE_VA 0, verticalVelocity
 @GravityExit
         jsr AdjustVelocityGauge
         rts
@@ -230,12 +201,12 @@ UpdateSprites
         lda shipXLo + 1
         cmp #$00
         bne @checklow
-        lda #$01
-        sta shipXHi
+        LIBGENERAL_STORE_VA 1, shipXHi
         jmp @spritepos
 @checklow
         cmp #$FF
         bne @spritepos
+        LIBGENERAL_STORE_VA 0, shipXHi
         lda #$00
         sta shipXHi
 @spritepos
@@ -247,42 +218,12 @@ UpdateSprites
 LandingDetection
         lda shipXHi
         cmp #0
-        bne @zone3test
-        lda shipY + 1
-        cmp #228
-        bcc @zone2test
-        lda shipXLo + 1
-        cmp #63
-        bcc @zone2test
-        cmp #66
-        bcs @zone2test
-        lda #true
-        sta shipLanded
-        jmp @exit
-@zone2test
-        lda shipY + 1
-        cmp #132
-        bcc @exit
-        lda shipXLo + 1
-        cmp #140
-        bcc @Exit
-        cmp #145
-        bcs @exit
-        lda #true
-        sta shipLanded
-        jmp @exit
-@zone3test
-        lda shipY + 1
-        cmp #204
-        bcc @exit
-        lda shipXLo + 1
-        cmp #8
-        bcc @exit
-        cmp #18
-        bcs @exit
-        lda #true
-        sta shipLanded
-@exit
+        bne zone3test
+        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 228, 230, shipXLo+1, 63, 66, shipLanded
+        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 132, 134, shipXLo+1, 140, 145, shipLanded
+        rts
+zone3test
+        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 204, 206, shipXLo+1, 8, 18, shipLanded
         rts
 
 CollisionDetection
@@ -303,8 +244,7 @@ CollisionDetection
 @nocollision
         rts
 @notinsafezone
-        lda #true
-        sta collisionBackground
+        LIBGENERAL_STORE_VA true, collisionBackground
         rts
 
 ShipExplosion
@@ -312,23 +252,19 @@ ShipExplosion
         beq ExitShipExplosion
         lda shipExplosionLoop + 1
         bne ExpLoopDecrease
-        lda #250
-        sta shipExplosionLoop
-        lda #05
-        sta shipExplosionLoop + 1
+        LIBGENERAL_STORE_VA 250, shipExplosionLoop
+        LIBGENERAL_STORE_VA 5, shipExplosionLoop + 1
         LIBSPRITE_SETFRAME_AA shipSprite, shipExplosionFrame
         inc shipExplosionFrame
         lda shipExplosionFrame
         cmp #14
         bne ExpLoopDecrease
-        lda #false
-        sta shipExplosionActive
+        LIBGENERAL_STORE_VA false, shipExplosionActive
 ExpLoopDecrease
         dec shipExplosionLoop
         bne ExitShipExplosion
         dec shipExplosionLoop + 1
-        lda #250
-        sta shipExplosionLoop
+        LIBGENERAL_STORE_VA 250, shipExplosionLoop
 ExitShipExplosion
         rts
 
