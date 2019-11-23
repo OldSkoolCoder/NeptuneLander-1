@@ -97,3 +97,16 @@ defm 	LIBSCREEN_PRINT_A ;address of text
         jmp @nextchar
 @exit
         endm
+        
+;Print to the screen using the kernal CHROUT routine (max 255 chars)
+defm 	LIBSCREEN_INDIRECT_PRINT_A ;address of text
+
+        ldy #0
+@nextchar
+        lda (/1),y
+        beq @exit
+        jsr krnCHROUT
+        iny
+        jmp @nextchar
+@exit
+        endm

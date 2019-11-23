@@ -11,9 +11,6 @@ InitVariables
         sta horizontalVelocity
         sta verticalVelocity + 1
         sta horizontalVelocity + 1
-        sta gravity + 1
-        sta thrust + 1
-        sta horizontalInertia + 1
         sta shipExplosionLoop
         sta shipExplosionLoop + 1
         sta velMicro
@@ -24,17 +21,35 @@ InitVariables
         LIBGENERAL_STORE_VA 10, fuelMicro
         LIBGENERAL_STORE_VA 13, fuelMajor
         LIBGENERAL_STORE_VA gfAlive, gameStatus
-        LIBGENERAL_STORE2_VAA 4, thrust, velMinor
+        LIBGENERAL_STORE_VA 4, velMinor
         LIBGENERAL_STORE2_VAA 60, shipXLo + 1, shipY + 1
-        LIBGENERAL_STORE4_VAAAA 2, gravity, thrustDirSprite, horizontalInertia, shipExplosionFrame
+        LIBGENERAL_STORE2_VAA 2, thrustDirSprite, shipExplosionFrame
         lda SPRCBG
+        lda gameLevelEasy
+        sta gameLevelCurrent
         rts
 
-InitScreen
+InitGame
+        ldy gameLevelCurrent
+        lda gameLevelReferenceLo,y
+        sta zpLow
+        lda gameLevelReferenceHi,y
+        sta zpHigh
+        ldy #19
+@loopvars
+        lda (zpLow),y
+        sta gameLevelCurrent,y
+        dey
+        bne @loopvars
         LIBSCREEN_SETCOLOURS_VVVVV black, black, black, black, black
         LIBSCREEN_SET1000_AV SCREENRAM, space
         LIBSCREEN_SETVIC_AV VMCR, #12
-        LIBSCREEN_PRINT_A scLevelOne
+        ldy gameLevelCurrent
+        lda gameMapReferenceLo,y
+        sta zpLow
+        lda gameMapReferenceHi,y
+        sta zpHigh
+        LIBSCREEN_INDIRECT_PRINT_A zpLow
         rts
 
 InitGauges
@@ -97,7 +112,8 @@ AdjustFuel
         lda fuelMicro
         cmp #$FF
         bne AdjustFuelExit
-        LIBGENERAL_STORE_VA cnFuelRate, fuelMicro
+        lda fuelRate
+        sta fuelMicro
         dec fuelMinor
         lda fuelMinor
         cmp #$FF
@@ -219,11 +235,11 @@ LandingDetection
         lda shipXHi
         cmp #0
         bne zone3test
-        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 228, 230, shipXLo+1, 63, 66, shipLanded
-        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 132, 134, shipXLo+1, 140, 145, shipLanded
+        LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base1XYBound+2, base1XYBound+3, shipXLo+1, base1XYBound, base1XYBound+1, shipLanded
+        LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base2XYBound+2, base2XYBound+3, shipXLo+1, base2XYBound, base2XYBound+1, shipLanded        
         rts
 zone3test
-        LIBSPRITE_CHECKPOS_AVVAVVA shipY+1, 204, 206, shipXLo+1, 8, 18, shipLanded
+        LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base3XYBound+2, base3XYBound+3, shipXLo+1, base3XYBound, base3XYBound+1, shipLanded
         rts
 
 CollisionDetection

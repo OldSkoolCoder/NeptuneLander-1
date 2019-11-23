@@ -1,4 +1,4 @@
-;variables
+;core game variables
 
 shipXHi                 byte 00
 shipXLo                 byte 00, 00 ;fraction, integer
@@ -8,10 +8,7 @@ thrustSprite            byte 00
 thrustDirSprite         byte 00
 
 verticalVelocity        byte 00, 00 ;fraction, integer
-gravity                 byte 00, 00 ;fraction, integer
-thrust                  byte 00, 00 ;fraction, integer
 horizontalVelocity      byte 00, 00 ;fraction, integer
-horizontalInertia       byte 00, 00 ;fraction, integer
 velocityOffset          byte 00
 
 fuelMajor               byte 00
@@ -57,6 +54,5 @@ gfLanded                = 2
 gfDying                 = 3
 gfDead                  = 4
 
-cnFuelRate              = 10
 cnVelRate               = 9
 

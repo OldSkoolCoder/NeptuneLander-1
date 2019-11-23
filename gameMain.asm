@@ -5,7 +5,7 @@
 
 Initialise
         jsr InitVariables
-        jsr InitScreen
+        jsr InitGame
         jsr InitGauges
         jsr InitSprites
 
