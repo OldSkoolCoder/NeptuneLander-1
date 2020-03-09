@@ -37,18 +37,33 @@
         <PostBuildCommands />
     </BuildEvents>
     <BuildList>
-        <FileName>includes.asm</FileName>
-        <FileName>gameMemory.asm</FileName>
-        <FileName>gameMain.asm</FileName>
-        <FileName>gameSubs.asm</FileName>
+        <FileName>Constants.asm</FileName>
+        <FileName>Libraries.asm</FileName>
+        <FileName>Main.asm</FileName>
+        <FileName>Memory.asm</FileName>
         <FileName>gameFlow.asm</FileName>
-        <FileName>gameVars.asm</FileName>
-        <FileName>gameLevels.asm</FileName>
+        <FileName>Initialise.asm</FileName>
+        <FileName>io.asm</FileName>
+        <FileName>gameLevel.asm</FileName>
+        <FileName>gameGauges.asm</FileName>
+        <FileName>gamePlayer.asm</FileName>
+        <FileName>gameShip.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>1</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
-    <AssyBinaryFileLocation />
+    <AssyBinaryFileLocation>C:\Users\marka\Desktop\RetroDev\C64\cbmprg\NeptuneLander\scnLanderIntro.bin</AssyBinaryFileLocation>
     <SourceFiles>
+        <SourceFile>
+            <Name>Constants.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>True</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
         <SourceFile>
             <Name>gameFlow.asm</Name>
             <PrgName />
@@ -61,18 +76,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>gameLevels.asm</Name>
-            <PrgName />
-            <FileType>2</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>True</Topmost>
-            <FileOpen>True</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>gameMain.asm</Name>
+            <Name>gameGauges.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -83,7 +87,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>gameMemory.asm</Name>
+            <Name>gameLevel.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -94,7 +98,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>gameSubs.asm</Name>
+            <Name>gamePlayer.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -105,7 +109,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>gameVars.asm</Name>
+            <Name>gameShip.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -116,7 +120,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>includes.asm</Name>
+            <Name>Initialise.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -127,10 +131,43 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>NeptuneLander.bas</Name>
+            <Name>io.asm</Name>
             <PrgName />
-            <FileType>1</FileType>
-            <IncludeInBuild>False</IncludeInBuild>
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>Libraries.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>Main.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>Memory.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
             <Regions />
             <Breakpoints />
             <Bookmarks />

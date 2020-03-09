@@ -1,66 +1,75 @@
-gfStatusJumpTableLo             byte <GameFlowStatusMenu
-                                byte <GameFlowStatusAlive
-                                byte <GameFlowStatusLanded
-                                byte <GameFlowStatusDying
-                                byte <GameFlowStatusDead
+gfStatusJumpTableLo             byte <GameFlow_StatusMenu
+                                byte <GameFlow_StatusNextLevel
+                                byte <GameFlow_StatusAlive
+                                byte <GameFlow_StatusLanded
+                                byte <GameFlow_StatusDying
+                                byte <GameFlow_StatusDead
+                                byte <GameFlow_StatusHiScore
 
-gfStatusJumpTableHi             byte >GameFlowStatusMenu
-                                byte >GameFlowStatusAlive
-                                byte >GameFlowStatusLanded
-                                byte >GameFlowStatusDying
-                                byte >GameFlowStatusDead
+gfStatusJumpTableHi             byte >GameFlow_StatusMenu
+                                byte >GameFlow_StatusNextLevel
+                                byte >GameFlow_StatusAlive
+                                byte >GameFlow_StatusLanded
+                                byte >GameFlow_StatusDying
+                                byte >GameFlow_StatusDead
+                                byte >GameFlow_StatusHiScore
 
-GameFlowUpdate
+GameFlow_Update
         ldx gameStatus
         lda gfStatusJumpTableLo,x
         sta zpLow
         lda gfStatusJumpTableHi,x
         sta zpHigh
-
         jmp (zpLow)
 
-GameFlowStatusMenu
-        ;not yet implemented
+GameFlow_StatusMenu
+        jsr Initialise_Menu
+        lda #GF_STATUS_NEXT_LEVEL
+        sta gameStatus
         rts
 
-GameFlowStatusAlive
+GameFlow_StatusNextLevel
+        jsr gameLevel_IntroText
+        jsr gameLevel_PrepareLevel
+        jsr gameLevel_InitialiseSprites
+        lda #GF_STATUS_ALIVE
+        sta gameStatus
+        rts
+
+GameFlow_StatusAlive
+        jsr gamePlayer_UserInput
+        jsr gamePlayer_Move
+        jsr gamePlayer_AddGravity
+        jsr gamePlayer_UpdateSprites
+        jsr gameGauges_AdjustVelocityGauge
+        jsr gameGauges_DisplayFuelGauge
+        jsr gameGauges_DisplayVelocityGauge
+        jsr gameShip_CheckLanded
+        jsr gameShip_CheckCollision
         lda shipLanded
-        beq @checkcollision
-        lda #gfLanded
+        beq .NotLanded
+        lda #GF_STATUS_LANDED
         sta gameStatus
-        jmp @exit
-@checkcollision
-        lda collisionBackground
-        ;lda dbcollision
-        beq @exit
-        lda #gfDying
+.NotLanded
+        lda shipCollided
+        beq .NotCollided
+        lda #GF_STATUS_DYING
         sta gameStatus
-@exit
+.NotCollided
         rts
 
-GameFlowStatusDying
-        lda #True
-        sta shipExplosionActive
-        LIBSPRITE_MULTICOLORENABLE_AV shipSprite, true
-        LIBSPRITE_ENABLE_VV %00000110, false
-@Loop
-        jsr shipExplosion
-        lda shipExplosionActive
-        bne @loop
-        lda #gfDead
-        sta gameStatus
+GameFlow_StatusLanded
+        jsr gameShip_Landed
         rts
 
-GameFlowStatusDead
-        LIBSPRITE_ENABLE_VV %00000001, false
-@loop
-        LIBJOY_GETJOY_V JoyFire
-        bne @loop
-        lda #gfMenu
-        sta gameStatus
+GameFlow_StatusDying
+        jsr gameShip_Exploding
         rts
 
-GameFlowStatusLanded
-        lda #$39
-        sta $0410
+GameFlow_StatusDead
+        jsr gameLevel_GameOver
         rts
+
+GameFlow_StatusHiScore
+        rts
+
