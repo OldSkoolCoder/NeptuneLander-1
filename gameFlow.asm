@@ -37,6 +37,7 @@ GameFlow_StatusNextLevel
         rts
 
 GameFlow_StatusAlive
+        jsr gameScore_DisplayScore
         jsr gamePlayer_UserInput
         jsr gamePlayer_Move
         jsr gamePlayer_AddGravity

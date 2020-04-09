@@ -39,15 +39,18 @@
     <BuildList>
         <FileName>Constants.asm</FileName>
         <FileName>Libraries.asm</FileName>
+        <FileName>io.asm</FileName>
         <FileName>Main.asm</FileName>
         <FileName>Memory.asm</FileName>
-        <FileName>gameFlow.asm</FileName>
         <FileName>Initialise.asm</FileName>
-        <FileName>io.asm</FileName>
+        <FileName>gameFlow.asm</FileName>
         <FileName>gameLevel.asm</FileName>
         <FileName>gameGauges.asm</FileName>
         <FileName>gamePlayer.asm</FileName>
         <FileName>gameShip.asm</FileName>
+        <FileName>IRQ.asm</FileName>
+        <FileName>gameUtils.asm</FileName>
+        <FileName>gameScore.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>1</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
@@ -61,7 +64,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -109,7 +112,29 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>gameScore.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>gameShip.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>gameUtils.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -132,6 +157,17 @@
         </SourceFile>
         <SourceFile>
             <Name>io.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>IRQ.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -171,7 +207,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>

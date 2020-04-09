@@ -70,6 +70,23 @@ defm    LIBSCREEN_SET1000_AV ;Start Address, Character Code
         endm
 
 
+; Print a decimal value to the screen
+defm    LIBSCREEN_DISPLAY_DECIMAL_AA ;Decimal address, screen location
+        lda /1
+        and #$F0
+        lsr
+        lsr
+        lsr
+        lsr
+        ora #$30
+        sta /2
+        lda /1
+        and #$0F
+        ora #$30
+        sta /2 + 1
+        endm
+
+
 ; Simple delay
 defm    LIBGENERAL_DELAY_V ; no. of y loops
         ldy #/1
@@ -264,6 +281,25 @@ defm    LIBMATHS_ADD_16BIT_AA ;Source1, Source2
         lda /1 + 1
         adc /2 + 1
         sta /1 + 1
+        endm
+
+
+;Add value to a value in an address and store it
+defm    LIBMATHS_ADD_DEC_24BIT_AA ;Source1 24bit, Source2 8bit
+        sei
+        sed
+        clc
+        lda /1
+        adc /2
+        sta /1
+        lda /1 + 1
+        adc #0
+        sta /1 + 1
+        lda /1 + 2
+        adc #0
+        sta /1 + 2
+        cld
+        cli
         endm
 
 

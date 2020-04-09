@@ -1,12 +1,28 @@
 gameShip_CheckLanded
+        lda #0
+        sta landingPad
         lda shipXHi
-        cmp #0
         bne .Zone3Test
         LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base1XYBound+2, base1XYBound+3, shipXLo+1, base1XYBound, base1XYBound+1, shipLanded
-        LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base2XYBound+2, base2XYBound+3, shipXLo+1, base2XYBound, base2XYBound+1, shipLanded        
-        rts
+        lda shipLanded
+        beq .Zone2Test
+        lda #1
+        sta landingPad
+        jmp .ExitCheckLanded
+.Zone2Test
+        LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base2XYBound+2, base2XYBound+3, shipXLo+1, base2XYBound, base2XYBound+1, shipLanded 
+        lda shipLanded
+        beq .ExitCheckLanded
+        lda #2
+        sta landingPad
+        jmp .ExitCheckLanded
 .Zone3Test
         LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base3XYBound+2, base3XYBound+3, shipXLo+1, base3XYBound, base3XYBound+1, shipLanded
+        lda shipLanded
+        beq .ExitCheckLanded
+        lda #3
+        sta landingPad
+.ExitCheckLanded
         rts
 
 
@@ -49,7 +65,9 @@ gameShip_Exploding
         lda shipExplosionFrame
         cmp #14
         bne .ExitExploding
-        LIBSPRITE_ENABLE_VV %00000001, FALSE
+        ;LIBSPRITE_ENABLE_VV %00000001, FALSE   
+        lda #0
+        sta SPREN
         lda #GF_STATUS_DEAD
         sta gameStatus
 .ExitExploding
@@ -58,7 +76,6 @@ gameShip_Exploding
 
 
 gameShip_Landed
-        LIBSPRITE_ENABLE_VV %00000111, FALSE
         ldx #0
 .LandedTextLoop
         lda txtSuccess,x
@@ -68,6 +85,7 @@ gameShip_Landed
         inx
         cpx #18
         bne .LandedTextLoop
+        jsr gameScore_FuelRemaining
         LIBGENERAL_DELAY_V 255
         LIBGENERAL_DELAY_V 255
         LIBGENERAL_DELAY_V 255
@@ -77,6 +95,7 @@ gameShip_Landed
         sta shipLanded
         lda #GF_STATUS_NEXT_LEVEL
         sta gameStatus
+        LIBSPRITE_ENABLE_VV %00000111, FALSE
         rts
 
 

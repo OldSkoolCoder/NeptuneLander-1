@@ -35,7 +35,7 @@ gameLevel_PrepareLevel
         sta zpLow
         lda gameLevelReferenceHi,y
         sta zpHigh
-        ldy #24
+        ldy #27
 .LevelDataCopyLoop
         lda (zpLow),y
         sta gameLevelCurrent,y
@@ -54,6 +54,12 @@ gameLevel_PrepareLevel
         lda #RED
         sta COLROW11+37
         sta COLROW12+37
+        ldy #7
+        lda #YELLOW
+.ScoreColourLoop
+        sta COLSCORE-1,y
+        dey
+        bne .ScoreColourLoop
         lda #13
         sta fuelMajor
         lda #8
@@ -71,11 +77,18 @@ gameLevel_PrepareLevel
         sta verticalVelocity+1
         sta horizontalVelocity
         sta horizontalVelocity+1
+        sta shipExplosionDelay
+        lda #2
+        sta shipExplosionFrame
+        lda #FALSE
+        sta shipExplosionActive
+        lda SPRCSP
         rts
 
 
 gameLevel_InitialiseSprites
         LIBSPRITE_MULTICOLORENABLE_VV SHIP_SPRITE, FALSE
+        LIBSPRITE_MULTICOLORENABLE_VV THRUST_SPRITE, TRUE
         LIBSPRITE_SETFRAME_VV SHIP_SPRITE, FRAME_SHIP
         LIBSPRITE_SETFRAME_VV THRUST_SPRITE, FRAME_THRUST_NONE
         LIBSPRITE_SETFRAME_VV THRUST_DIR_SPRITE, FRAME_THRUST_NONE
@@ -83,10 +96,10 @@ gameLevel_InitialiseSprites
         LIBSPRITE_SETPOSITION_VAAA SHIP_SPRITE, shipXHi, shipXLo+1, shipY+1
         LIBSPRITE_SETPOSITION_VAAA THRUST_SPRITE, shipXHi, shipXLo+1, shipY+1
         LIBSPRITE_SETPOSITION_VAAA THRUST_DIR_SPRITE, shipXHi, shipXLo+1, shipY+1
-        LIBSPRITE_SETCOLOUR_VV SHIP_SPRITE, GRAY1
+        LIBSPRITE_SETCOLOUR_VV SHIP_SPRITE, GRAY2
         LIBSPRITE_SETCOLOUR_VV THRUST_SPRITE, RED
         LIBSPRITE_SETCOLOUR_VV THRUST_DIR_SPRITE, RED
-        LIBSPRITE_SETMULTICOLORS_VV yellow, GRAY3
+        LIBSPRITE_SETMULTICOLORS_VV YELLOW, GRAY1
         lda SPRCBG
         rts
 

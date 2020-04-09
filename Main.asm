@@ -5,6 +5,7 @@
 
 Start
         jsr Initialise_Game
+        jsr IRQ_Initialise
 
 GameLoop
         LIBSCREEN_WAIT_V 240

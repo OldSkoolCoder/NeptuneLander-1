@@ -10,8 +10,15 @@ VELOCITY_GAUGE  = $0426
 FUEL_GAUGE      = $062D
 SCNROW17        = $06A8
 SCNROW19        = $06F8
+SCNSCORE1       = $07D5
+SCNSCORE2       = $07D3
+SCNSCORE3       = $07D1
 SPRPTR0         = $07F8 ;Sprite pointers
 
+SID_INIT        = $1000
+SID_PLAY        = $1003
+;*=$1000
+;                incbin "Lunar_Landscape.sid", $7E
 
 SPRITERAM       = 170
 *=$2A80
@@ -28,7 +35,13 @@ SCN_INTRO
                 incbin "scnLanderIntro.bin"
 
 
-*=$4000
+*=$7000
+                incbin "Chaos_in_Space.sid", $7E
+
+*=$8000
+                incbin "Lunar_Landscape.sid", $7E
+
+*=$2000
 ;Game data
 gameStatus                      byte 00
 
@@ -53,6 +66,10 @@ shipCollided                    byte 00
 shipExplosionFrame              byte 02
 shipExplosionDelay              byte 00
 shipExplosionActive             byte 00
+
+score                           byte 00, 00, 00
+landingPad                      byte 00
+fuelBonus                       byte 00
 
 txtLevelNumber                  text 'level 00'
 txtPrepareLand                  text 'prepare to land, commander'
@@ -88,6 +105,7 @@ gravity                         byte 00, 00 ;fraction, integer
 thrust                          byte 00, 00 ;fraction, integer
 horizontalInertia               byte 00, 00 ;fraction, integer
 fuelRate                        byte 00
+baseScoreMultiplier             byte 00, 00, 00
 base1XYBound                    byte 00, 00, 00, 00 ; x lower, x upper, y lower, y upper
 base2XYBound                    byte 00, 00, 00, 00
 base3XYBound                    byte 00, 00, 00, 00
@@ -102,6 +120,7 @@ gameLevel1                      byte 0
                                 byte 6, 0 ;thrust
                                 byte 2, 0 ;horizontal inertia
                                 byte 15 ; fuel rate - higher = slower
+                                byte 1, 2, 3
                                 byte 63, 66, 228, 230 ; base 1 bounds
                                 byte 140, 145, 132, 134 ; base 2 bounds
                                 byte 8, 18, 204, 206 ; base 3 bounds
@@ -119,6 +138,7 @@ gameLevel2                      byte 1
                                 byte 4, 0 ;thrust
                                 byte 2, 0 ;horizontal inertia
                                 byte 10 ; fuel rate
+                                byte 1, 2, 3
                                 byte 63, 66, 228, 230 ; base 1 bounds
                                 byte 140, 145, 132, 134 ; base 2 bounds
                                 byte 8, 18, 204, 206 ; base 3 bounds
@@ -136,6 +156,7 @@ gameLevel3                      byte 2
                                 byte 4, 0 ;thrust
                                 byte 2, 0 ;horizontal inertia
                                 byte 10 ; fuel rate
+                                byte 1, 2, 3
                                 byte 63, 66, 228, 230 ; base 1 bounds
                                 byte 140, 145, 132, 134 ; base 2 bounds
                                 byte 8, 18, 204, 206 ; base 3 bounds
@@ -149,18 +170,10 @@ gameMap3                        text "{clear}{white}{down*8}##{down}]^{down}{arr
                                 byte 00
 
 
-
-
-
-
-
-
-
-
-
 COLROW0                         = $D800
 COLROW6                         = $D8F0
 COLROW11                        = $D9B8
 COLROW12                        = $D9E0
 COLROW17                        = $DAA8
 COLROW19                        = $DAF8
+COLSCORE                        = $DBD1

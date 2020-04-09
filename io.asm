@@ -66,9 +66,11 @@ CIAPRA          = $DC00 ;CIA port A
 CIAPRB          = $DC01 ;CIA port B
 DDRA            = $DC02 ;Data direction register port A
 DDRB            = $DC03 ;Data direction register port B
+ICSR            = $DC0D
 
 ;-------------------------------------------------------------------------------
 ; KERNAL ROM $E000-$FFFF
 ;-------------------------------------------------------------------------------
 
+krnINTERRUPT    = $EA31
 krnCHROUT       = $FFD2
