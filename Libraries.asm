@@ -1,4 +1,12 @@
 ; Copy screen and colour data to display ram
+defm    LIBSCREEN_COPYSCREENROW_A
+        lda /1,y
+        sta /1+40,y
+        lda /1+$D400,y
+        sta /1+$D428,y
+        endm
+
+
 defm    LIBSCREEN_COPYSCREEN_A
         ldx #0
 @loop   
@@ -36,6 +44,14 @@ defm    LIBSCREEN_SETCOLOURS_VV ;Border, Background
 ; Wait for raster line
 defm    LIBSCREEN_WAIT_V ;Line number
 @loop   lda #/1
+        cmp RASTER
+        bne @loop
+        endm
+
+
+; Wait for raster line
+defm    LIBSCREEN_WAIT_A ;Line number
+@loop   lda /1
         cmp RASTER
         bne @loop
         endm

@@ -122,6 +122,6 @@ gameLevel_GameOver
         sta gameLevelCurrent
         lda #FALSE
         sta shipCollided
-        lda #GF_STATUS_MENU
+        lda #GF_STATUS_SCROLL_MENU
         sta gameStatus
         rts

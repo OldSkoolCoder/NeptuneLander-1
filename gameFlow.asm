@@ -1,4 +1,5 @@
-gfStatusJumpTableLo             byte <GameFlow_StatusMenu
+gfStatusJumpTableLo             byte <GameFlow_StatusScrollMenu
+                                byte <GameFlow_StatusMenu
                                 byte <GameFlow_StatusNextLevel
                                 byte <GameFlow_StatusAlive
                                 byte <GameFlow_StatusLanded
@@ -6,7 +7,8 @@ gfStatusJumpTableLo             byte <GameFlow_StatusMenu
                                 byte <GameFlow_StatusDead
                                 byte <GameFlow_StatusHiScore
 
-gfStatusJumpTableHi             byte >GameFlow_StatusMenu
+gfStatusJumpTableHi             byte >GameFlow_StatusScrollMenu
+                                byte >GameFlow_StatusMenu
                                 byte >GameFlow_StatusNextLevel
                                 byte >GameFlow_StatusAlive
                                 byte >GameFlow_StatusLanded
@@ -21,6 +23,10 @@ GameFlow_Update
         lda gfStatusJumpTableHi,x
         sta zpHigh
         jmp (zpLow)
+
+GameFlow_StatusScrollMenu
+        jsr Initialise_ScrollMenu
+        rts
 
 GameFlow_StatusMenu
         jsr Initialise_Menu

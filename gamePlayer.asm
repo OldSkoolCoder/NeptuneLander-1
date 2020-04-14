@@ -8,16 +8,19 @@ gamePlayer_UserInput
         LIBJOY_GETJOY_V JOY_LEFT
         bne .CheckMoveRight
         inc moveLeft
+        jsr gameSound_Thrusters
 .CheckMoveRight
         LIBJOY_GETJOY_V JOY_RIGHT
         bne .CheckFirePressed
         inc moveRight
+        jsr gameSound_Thrusters
 .CheckFirePressed
         LIBJOY_GETJOY_V JOY_FIRE
         bne .ExitUserInput
         inc moveThrust
-        inc fuelUsed
-        inc fuelUsed
+        ;inc fuelUsed
+        ;inc fuelUsed
+        jsr gameSound_Thrusters
 .ExitUserInput
         rts
 
