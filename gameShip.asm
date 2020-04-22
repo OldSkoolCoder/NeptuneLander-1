@@ -8,20 +8,26 @@ gameShip_CheckLanded
         beq .Zone2Test
         lda #1
         sta landingPad
-        jmp .ExitCheckLanded
+        jmp .CheckLandingVelocity
 .Zone2Test
         LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base2XYBound+2, base2XYBound+3, shipXLo+1, base2XYBound, base2XYBound+1, shipLanded 
         lda shipLanded
         beq .ExitCheckLanded
         lda #2
         sta landingPad
-        jmp .ExitCheckLanded
+        jmp .CheckLandingVelocity
 .Zone3Test
         LIBSPRITE_CHECKPOS_AAAAAAA shipY+1, base3XYBound+2, base3XYBound+3, shipXLo+1, base3XYBound, base3XYBound+1, shipLanded
         lda shipLanded
         beq .ExitCheckLanded
         lda #3
         sta landingPad
+.CheckLandingVelocity
+        lda velocityMajor
+        cmp #6
+        beq .ExitCheckLanded
+        lda #FALSE
+        sta shipLanded
 .ExitCheckLanded
         rts
 
