@@ -95,12 +95,20 @@ gamePlayer_UpdateSprites
         bne .CheckMSBLower
         lda #1
         sta shipXHi
-        jmp .PositionSprites
+        jmp .CheckYPos
 .CheckMSBLower
         cmp #$FF
-        bne .PositionSprites
+        bne .CheckYPos
         lda #0
         sta shipXHi
+.CheckYPos
+        lda shipY+1
+        cmp #10
+        bcs .PositionSprites
+        lda #TRUE
+        sta shipLostInSpace
+        lda #GF_STATUS_DYING
+        sta gameStatus
 .PositionSprites
         LIBSPRITE_SETPOSITION_VAAA SHIP_SPRITE, shipXHi, shipXLo+1, shipY+1
         LIBSPRITE_SETPOSITION_VAAA THRUST_SPRITE, shipXHi, shipXLo+1, shipY+1

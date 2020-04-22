@@ -78,6 +78,7 @@ gameLevel_PrepareLevel
         sta horizontalVelocity
         sta horizontalVelocity+1
         sta shipExplosionDelay
+        sta shipLostInSpace
         lda #2
         sta shipExplosionFrame
         lda #FALSE
@@ -105,14 +106,25 @@ gameLevel_InitialiseSprites
 
 
 gameLevel_GameOver
-        ldx #0
+        ldy #0
+        lda shipLostInSpace
+        beq .ShipCrashedText
+        lda #<txtLostInSpace
+        ldx #>txtLostInSpace
+        jmp .DisplayMessage
+.ShipCrashedText
+        lda #<txtGameOver
+        ldx #>txtGameOver
+.DisplayMessage
+        sta zpLow
+        stx zpHigh
 .GameOverTextLoop
-        lda txtGameOver,x
-        sta SCNROW0+9,x
+        lda (zpLow),y
+        sta SCNROW0+8,y
         lda #YELLOW
-        sta COLROW0+9,x
-        inx
-        cpx #22
+        sta COLROW0+8,y
+        iny
+        cpy #24
         bne .GameOverTextLoop
         LIBGENERAL_DELAY_V 255
         LIBGENERAL_DELAY_V 255
@@ -122,6 +134,7 @@ gameLevel_GameOver
         sta gameLevelCurrent
         lda #FALSE
         sta shipCollided
+        sta shipLostInSpace
         lda #GF_STATUS_SCROLL_MENU
         sta gameStatus
         rts

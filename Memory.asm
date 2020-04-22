@@ -68,6 +68,7 @@ shipCollided                    byte 00
 shipExplosionFrame              byte 02
 shipExplosionDelay              byte 00
 shipExplosionActive             byte 00
+shipLostInSpace                 byte 00
 
 score                           byte 00, 00, 00
 landingPad                      byte 00
@@ -76,7 +77,8 @@ fuelBonus                       byte 00
 txtLevelNumber                  text 'level 00'
 txtPrepareLand                  text 'prepare to land, commander'
 txtSuccess                      text 'landing succeeded.'
-txtGameOver                     text 'you crashed. game over'
+txtGameOver                     text ' you crashed. game over '
+txtLostInSpace                  text 'lost in space. game over'
 
 currentScreenRow                byte 00
 screenScrollYValue              byte 00
