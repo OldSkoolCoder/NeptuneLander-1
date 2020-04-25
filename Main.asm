@@ -8,6 +8,7 @@ Start
         jsr IRQ_Initialise
 
 GameLoop
-        LIBSCREEN_WAIT_V 240
+        ;LIBSCREEN_WAIT_V 240
+        LIBSCREEN_WAIT_A rasterPosition
         jsr GameFlow_Update
         jmp GameLoop

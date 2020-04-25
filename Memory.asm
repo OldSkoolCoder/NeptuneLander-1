@@ -34,6 +34,8 @@ SCN_INTRO
 *=$3400
                 incbin "scnLanderIntro.bin"
 
+COL_INTRO       = $37E8
+
 
 *=$7000
                 incbin "Chaos_in_Space.sid", $7E
@@ -66,6 +68,7 @@ shipCollided                    byte 00
 shipExplosionFrame              byte 02
 shipExplosionDelay              byte 00
 shipExplosionActive             byte 00
+shipLostInSpace                 byte 00
 
 score                           byte 00, 00, 00
 landingPad                      byte 00
@@ -74,7 +77,37 @@ fuelBonus                       byte 00
 txtLevelNumber                  text 'level 00'
 txtPrepareLand                  text 'prepare to land, commander'
 txtSuccess                      text 'landing succeeded.'
-txtGameOver                     text 'you crashed. game over'
+txtGameOver                     text ' you crashed. game over '
+txtLostInSpace                  text 'lost in space. game over'
+
+currentScreenRow                byte 00
+screenScrollYValue              byte 00
+initScroll                      byte 00
+rasterPosition                  byte 00
+
+tbl_TitleScreenLo               byte <SCN_INTRO, <SCN_INTRO+40, <SCN_INTRO+80, <SCN_INTRO+120
+                                byte <SCN_INTRO+160, <SCN_INTRO+200, <SCN_INTRO+240, <SCN_INTRO+280
+                                byte <SCN_INTRO+320, <SCN_INTRO+360, <SCN_INTRO+400, <SCN_INTRO+440
+                                byte <SCN_INTRO+480, <SCN_INTRO+520, <SCN_INTRO+560, <SCN_INTRO+600
+                                byte <SCN_INTRO+640, <SCN_INTRO+680, <SCN_INTRO+720, <SCN_INTRO+760, <SCN_INTRO+800
+
+tbl_TitleScreenHi               byte >SCN_INTRO, >SCN_INTRO+40, >SCN_INTRO+80, >SCN_INTRO+120
+                                byte >SCN_INTRO+160, >SCN_INTRO+200, >SCN_INTRO+240, >SCN_INTRO+280
+                                byte >SCN_INTRO+320, >SCN_INTRO+360, >SCN_INTRO+400, >SCN_INTRO+440
+                                byte >SCN_INTRO+480, >SCN_INTRO+520, >SCN_INTRO+560, >SCN_INTRO+600
+                                byte >SCN_INTRO+640, >SCN_INTRO+680, >SCN_INTRO+720, >SCN_INTRO+760, >SCN_INTRO+800
+
+tbl_TitleScreenColourLo         byte <COL_INTRO, <COL_INTRO+40, <COL_INTRO+80, <COL_INTRO+120
+                                byte <COL_INTRO+160, <COL_INTRO+200, <COL_INTRO+240, <COL_INTRO+280
+                                byte <COL_INTRO+320, <COL_INTRO+360, <COL_INTRO+400, <COL_INTRO+440
+                                byte <COL_INTRO+480, <COL_INTRO+520, <COL_INTRO+560, <COL_INTRO+600
+                                byte <COL_INTRO+640, <COL_INTRO+680, <COL_INTRO+720, <COL_INTRO+760, <COL_INTRO+800
+
+tbl_TitleScreenColourHi         byte >COL_INTRO, >COL_INTRO+40, >COL_INTRO+80, >COL_INTRO+120
+                                byte >COL_INTRO+160, >COL_INTRO+200, >COL_INTRO+240, >COL_INTRO+280
+                                byte >COL_INTRO+320, >COL_INTRO+360, >COL_INTRO+400, >COL_INTRO+440
+                                byte >COL_INTRO+480, >COL_INTRO+520, >COL_INTRO+560, >COL_INTRO+600
+                                byte >COL_INTRO+640, >COL_INTRO+680, >COL_INTRO+720, >COL_INTRO+760, >COL_INTRO+800
 
 spriteNumberMask                byte %00000001, %00000010, %00000100, %00001000
                                 byte %00010000, %00100000, %01000000, %10000000

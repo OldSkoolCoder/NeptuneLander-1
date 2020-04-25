@@ -1,11 +1,11 @@
-
-GF_STATUS_MENU          = 0
-GF_STATUS_NEXT_LEVEL    = 1
-GF_STATUS_ALIVE         = 2
-GF_STATUS_LANDED        = 3
-GF_STATUS_DYING         = 4
-GF_STATUS_DEAD          = 5
-GF_STATUS_HISCORE       = 6
+GF_STATUS_SCROLL_MENU   = 0
+GF_STATUS_MENU          = 1
+GF_STATUS_NEXT_LEVEL    = 2
+GF_STATUS_ALIVE         = 3
+GF_STATUS_LANDED        = 4
+GF_STATUS_DYING         = 5
+GF_STATUS_DEAD          = 6
+GF_STATUS_HISCORE       = 7
 
 SHIP_SPRITE             = 0
 THRUST_SPRITE           = 1
@@ -52,3 +52,10 @@ FALSE                   = 0
 CHAR_BLOCK              = 64
 CHAR_FUEL               = 72
 CHAR_VELOCITY           = 73
+
+;Sound
+VOICE_OFF                       = 0
+VOICE_ON_TRIANGLE               = 17
+VOICE_ON_TRIANGLE_RING          = 21
+VOICE_ON_SAW                    = 33
+VOICE_ON_NOISE                  = 129

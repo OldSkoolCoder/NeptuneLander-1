@@ -6,7 +6,7 @@
     <include>True</include>
     <multi>False</multi>
     <spbkgnd>1</spbkgnd>
-    <spcolour>11</spcolour>
+    <spcolour>6</spcolour>
     <mcolour1>6</mcolour1>
     <mcolour2>7</mcolour2>
     <expandx>False</expandx>
@@ -41,9 +41,9 @@
     <include>True</include>
     <multi>True</multi>
     <spbkgnd>1</spbkgnd>
-    <spcolour>15</spcolour>
-    <mcolour1>2</mcolour1>
-    <mcolour2>11</mcolour2>
+    <spcolour>11</spcolour>
+    <mcolour1>7</mcolour1>
+    <mcolour2>15</mcolour2>
     <expandx>False</expandx>
     <expandy>False</expandy>
     <sdata>
@@ -462,32 +462,32 @@
     <multi>False</multi>
     <spbkgnd>1</spbkgnd>
     <spcolour>2</spcolour>
-    <mcolour1>2</mcolour1>
-    <mcolour2>11</mcolour2>
+    <mcolour1>7</mcolour1>
+    <mcolour2>15</mcolour2>
     <expandx>False</expandx>
     <expandy>False</expandy>
     <sdata>
       <data>0</data>
       <data>0</data>
       <data>0</data>
+      <data>262128</data>
+      <data>61440</data>
+      <data>1048560</data>
+      <data>986112</data>
+      <data>987120</data>
+      <data>987120</data>
+      <data>1008</data>
+      <data>4194300</data>
+      <data>4194300</data>
+      <data>3997692</data>
+      <data>3997692</data>
       <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>15360</data>
-      <data>59136</data>
-      <data>59136</data>
-      <data>32256</data>
-      <data>15360</data>
+      <data>49920</data>
+      <data>14336</data>
+      <data>65024</data>
+      <data>50688</data>
+      <data>65024</data>
+      <data>14336</data>
     </sdata>
    </sprite>
   <sprite>
@@ -561,33 +561,33 @@
     </sdata>
    </sprite>
   <sprite>
-    <description>No Thrust</description>
+    <description>Thrust None</description>
     <links></links>
     <include>True</include>
-    <multi>False</multi>
+    <multi>True</multi>
     <spbkgnd>1</spbkgnd>
     <spcolour>2</spcolour>
-    <mcolour1>6</mcolour1>
-    <mcolour2>7</mcolour2>
+    <mcolour1>2</mcolour1>
+    <mcolour2>15</mcolour2>
     <expandx>False</expandx>
     <expandy>False</expandy>
     <sdata>
       <data>0</data>
       <data>0</data>
       <data>0</data>
+      <data>262128</data>
+      <data>61440</data>
+      <data>1048560</data>
+      <data>986112</data>
+      <data>987120</data>
+      <data>987120</data>
+      <data>1008</data>
+      <data>4194300</data>
+      <data>4194300</data>
+      <data>3997692</data>
+      <data>3997692</data>
       <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
-      <data>0</data>
+      <data>49920</data>
       <data>0</data>
       <data>0</data>
       <data>0</data>
@@ -597,9 +597,9 @@
    </sprite>
     <!-- Scratchpad data -->
     <ScratchpadData>
-        <MaxSprites>0</MaxSprites>
-        <Cell>A</Cell>
-        <Cell>A</Cell>
+        <MaxSprites>3</MaxSprites>
+        <Cell>A0010000000000099;0140000000000099;0140000000000099;</Cell>
+        <Cell>A0140000000000099;0140000000000099;</Cell>
         <Cell>A</Cell>
         <Cell>A</Cell>
         <Cell>A</Cell>
